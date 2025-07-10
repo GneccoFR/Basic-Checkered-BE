@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BasicCheckeredBE.Core.Domain;
 using Cysharp.Threading.Tasks;
 
@@ -12,9 +13,17 @@ namespace BasicCheckeredBE.Repositories
             _boardCache = board;
         }
         
-        public async UniTask<BoardSquare[,]> GetCurrentBoard()
+        public BoardSquare[,] GetCurrentBoard()
         {
             return _boardCache;
+        }
+        
+        public void UpdateBoardSquares(List<BoardSquare> updatedBoardSquares)
+        {
+            foreach (var square in updatedBoardSquares)
+            {
+                _boardCache[(int)square.Coordinates.X, (int)square.Coordinates.Y] = square;
+            }
         }
     }
 }
